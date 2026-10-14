@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conectados Sin Violencia | Prevención de Violencias Digitales</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#6C5CE7',
+              darkPurple: '#5A4AD1',
+              violet: '#8A2BE2',
+              cyan: '#00CEFF',
+              blue: '#0984E3',
+              darkBg: '#0F0F1A',
+              darkCard: '#1E1E2C',
+              darkCardHover: '#28283D',
+              lightBg: '#F4F5FB',
+              lightCard: '#FFFFFF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif']
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 3s ease-in-out infinite alternate'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' }
+            },
+            glow: {
+              '0%': { boxShadow: '0 0 15px rgba(108, 92, 231, 0.4)' },
+              '100%': { boxShadow: '0 0 30px rgba(0, 206, 255, 0.8)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Outfit', sans-serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 15, 26, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #6C5CE7;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00CEFF;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #00CEFF 0%, #6C5CE7 50%, #8A2BE2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #6C5CE7 0%, #8A2BE2 100%);
+    }
+    .gradient-border {
+      position: relative;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.5), rgba(0, 206, 255, 0.5));
+      padding: 1px;
+    }
+    /* SVG Icon styles */
+    .icon-svg {
+      display: inline-block;
+      width: 1.25em;
+      height: 1.25em;
+      vertical-align: -0.125em;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body class="bg-brand-lightBg dark:bg-brand-darkBg text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300 flex flex-col justify-between selection:bg-brand-purple selection:text-white">
+
+  <!-- ACCESSIBILITY BAR & NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-brand-darkBg/80 border-b border-gray-200 dark:border-gray-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Title -->
+      <a href="#inicio" onclick="navigateTo('inicio')" class="flex items-center gap-2 group">
+        <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-purple/30 group-hover:scale-105 transition-transform">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457-.39-2.823-1.07-4"></path></svg>
+        </div>
+        <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight">Conectados<span class="text-brand-purple dark:text-brand-cyan">SinViolencia</span></span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium">
+        <button onclick="navigateTo('inicio')" id="nav-inicio" class="nav-btn px-3 py-2 rounded-lg transition-colors hover:text-brand-purple dark:hover:text-brand-cyan">Inicio</button>
+        <button onclick="navigateTo('tipos')" id="nav-tipos" class="nav-btn px-3 py-2 rounded-lg transition-colors hover:text-brand-purple dark:hover:text-brand-cyan">¿Qué son?</button>
+        <button onclick="navigateTo('simulador')" id="nav-simulador" class="nav-btn px-3 py-2 rounded-lg transition-colors hover:text-brand-purple dark:hover:text-brand-cyan">Simulador</button>
+        <button onclick="navigateTo('test')" id="nav-test" class="nav-btn px-3 py-2 rounded-lg transition-colors hover:text-brand-purple dark:hover:text-brand-cyan">Test</button>
+        <button onclick="navigateTo('ayuda')" id="nav-ayuda" class="nav-btn px-3 py-2 rounded-lg transition-colors hover:text-brand-purple dark:hover:text-brand-cyan">¿Qué hacer?</button>
+        <button onclick="navigateTo('mitos')" id="nav-mitos" class="nav-btn px-3 py-2 rounded-lg transition-colors hover:text-brand-purple dark:hover:text-brand-cyan">Mitos</button>
+        <button onclick="navigateTo('reflexion')" id="nav-reflexion" class="nav-btn px-3 py-2 rounded-lg transition-colors hover:text-brand-purple dark:hover:text-brand-cyan">Reflexión</button>
+      </nav>
+
+      <!-- Right Controls: Score, Dark Mode, High Contrast, Reset -->
+      <div class="flex items-center gap-2">
+        <!-- XP Points Pill -->
+        <div class="flex items-center gap-1.5 bg-brand-purple/10 dark:bg-brand-purple/20 border border-brand-purple/30 text-brand-purple dark:text-brand-cyan px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-sm" title="Tus Puntos de Experiencia Digital">
+          <svg class="w-4 h-4 text-amber-400 fill-amber-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span id="global-xp">0</span> <span class="hidden sm:inline">XP</span>
+        </div>
+
+        <!-- High Contrast / Font Size Toggle -->
+        <button id="contrast-toggle" onclick="toggleContrast()" class="p-2 text-gray-600 dark:text-gray-300 hover:text-brand-purple dark:hover:text-brand-cyan rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Modo Alto Contraste / Lectura Clara">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        </button>
+
+        <!-- Dark/Light Mode Toggle -->
+        <button id="theme-toggle" onclick="toggleTheme()" class="p-2 text-gray-600 dark:text-gray-300 hover:text-brand-purple dark:hover:text-brand-cyan rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Cambiar Tema (Oscuro/Claro)">
+          <svg id="theme-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <svg id="theme-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-brand-purple rounded-lg focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-brand-darkBg px-4 pt-2 pb-4 space-y-2">
+      <button onclick="navigateTo('inicio'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-brand-darkCard">Inicio</button>
+      <button onclick="navigateTo('tipos'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-brand-darkCard">¿Qué son las violencias?</button>
+      <button onclick="navigateTo('simulador'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-brand-darkCard">Simulador de Decisiones</button>
+      <button onclick="navigateTo('test'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-brand-darkCard">Test de Conocimientos</button>
+      <button onclick="navigateTo('ayuda'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-brand-darkCard">¿Qué hacer si soy víctima?</button>
+      <button onclick="navigateTo('mitos'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-brand-darkCard">Mitos y Realidades</button>
+      <button onclick="navigateTo('reflexion'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-brand-darkCard">Espacio de Reflexión</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Toast Notification Banner -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 max-w-md bg-gray-900 dark:bg-brand-darkCard text-white border border-brand-purple/40 p-4 rounded-xl shadow-2xl flex items-center gap-3 pointer-events-none">
+      <div id="toast-icon" class="text-xl text-brand-cyan">✨</div>
+      <div id="toast-msg" class="text-sm font-medium">¡Bienvenido a Conectados Sin Violencia!</div>
+    </div>
+
+    <!-- SECTION 1: INICIO -->
+    <section id="sec-inicio" class="space-y-12 animate-fade-in">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-purple/20 via-brand-darkCard to-brand-darkBg border border-brand-purple/30 p-8 sm:p-12 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
+        
+        <!-- Glowing Ambient Blobs -->
+        <div class="absolute -top-24 -left-24 w-72 h-72 bg-brand-purple/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-brand-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-2xl space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-purple/20 border border-brand-purple/40 text-brand-cyan text-xs font-semibold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span>
+            Espacio Educativo Digital e Interactivo
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+            Detrás de cada pantalla <span class="gradient-text">hay una persona</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            Internet, las redes sociales y los videojuegos son espacios para expresarnos y divertirnos, pero también pueden aparecer formas de acoso, chantaje o agresión. Aprende a identificarlas, defender tus derechos y cuidar a tus amigos.
+          </p>
+
+          <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
+            <button onclick="navigateTo('simulador')" class="px-6 py-3.5 rounded-xl gradient-bg text-white font-bold hover:shadow-lg hover:shadow-brand-purple/40 hover:scale-105 transition-all flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Probar Simulador
+            </button>
+            <button onclick="navigateTo('tipos')" class="px-6 py-3.5 rounded-xl bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 font-bold transition-all flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-purple dark:text-brand-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              Conocer Tipos de Violencia
+            </button>
+          </div>
+        </div>
+
+        <!-- Animated Hero Mascot / Illustration Card -->
+        <div class="relative z-10 w-full max-w-sm">
+          <div class="p-6 rounded-2xl bg-white/10 dark:bg-brand-darkCard/80 backdrop-blur-xl border border-white/20 dark:border-gray-700/50 shadow-2xl text-center space-y-4 animate-float">
+            <div class="w-20 h-20 mx-auto rounded-full gradient-bg flex items-center justify-center text-3xl shadow-lg shadow-brand-purple/50">
+              🛡️
+            </div>
+            <h3 class="font-heading text-xl font-bold">Tu Pasaporte de Seguridad</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Gana Puntos de Experiencia (XP) respondiendo actividades y desbloquea insignias digitales de ciudadano seguro.</p>
+            
+            <!-- Badges preview -->
+            <div class="grid grid-cols-3 gap-2 pt-2">
+              <div id="badge-mitos" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800/60 opacity-40 border border-transparent text-center transition-all">
+                <span class="text-xl block">🔍</span>
+                <span class="text-[10px] font-bold block mt-1">Detector</span>
+              </div>
+              <div id="badge-simulador" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800/60 opacity-40 border border-transparent text-center transition-all">
+                <span class="text-xl block">🎮</span>
+                <span class="text-[10px] font-bold block mt-1">Simulador</span>
+              </div>
+              <div id="badge-test" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800/60 opacity-40 border border-transparent text-center transition-all">
+                <span class="text-xl block">🏆</span>
+                <span class="text-[10px] font-bold block mt-1">Experto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Navigation Cards Grid -->
+      <div class="space-y-4">
+        <h2 class="text-2xl font-bold font-heading flex items-center gap-2">
+          <span class="w-2 h-6 rounded-full bg-brand-cyan"></span>
+          Explorá las Secciones Interactivas
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Card 1 -->
+          <div onclick="navigateTo('tipos')" class="group cursor-pointer p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 hover:border-brand-purple dark:hover:border-brand-cyan transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📱</div>
+            <h3 class="font-heading text-lg font-bold group-hover:text-brand-purple dark:group-hover:text-brand-cyan transition-colors">¿Qué son las violencias digitales?</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Descubre las distintas formas de acoso, sextorsión, grooming y discriminación con ejemplos y consejos prácticos.</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div onclick="navigateTo('simulador')" class="group cursor-pointer p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 hover:border-brand-purple dark:hover:border-brand-cyan transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🕹️</div>
+            <h3 class="font-heading text-lg font-bold group-hover:text-brand-purple dark:group-hover:text-brand-cyan transition-colors">Simulador de Situaciones</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Ponte a prueba en escenarios reales de Instagram, Discord y juegos online. ¿Qué decisión tomarías?</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div onclick="navigateTo('test')" class="group cursor-pointer p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 hover:border-brand-purple dark:hover:border-brand-cyan transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📝</div>
+            <h3 class="font-heading text-lg font-bold group-hover:text-brand-purple dark:group-hover:text-brand-cyan transition-colors">Test de Conocimientos</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Responde 10 preguntas sobre ciberseguridad, privacidad y leyes para poner a prueba tu nivel de protección.</p>
+          </div>
+
+          <!-- Card 4 -->
+          <div onclick="navigateTo('ayuda')" class="group cursor-pointer p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 hover:border-brand-purple dark:hover:border-brand-cyan transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🆘</div>
+            <h3 class="font-heading text-lg font-bold group-hover:text-brand-purple dark:group-hover:text-brand-cyan transition-colors">¿Qué hacer si soy víctima?</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Guía paso a paso de denuncias, recolección de pruebas y líneas de ayuda oficiales en Argentina (102, 137 y más).</p>
+          </div>
+
+          <!-- Card 5 -->
+          <div onclick="navigateTo('mitos')" class="group cursor-pointer p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 hover:border-brand-purple dark:hover:border-brand-cyan transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">⚡</div>
+            <h3 class="font-heading text-lg font-bold group-hover:text-brand-purple dark:group-hover:text-brand-cyan transition-colors">Mitos y Realidades</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">¿Es verdad que lo que borras desaparece de internet? Desmitifica los dichos más comunes del mundo digital.</p>
+          </div>
+
+          <!-- Card 6 -->
+          <div onclick="navigateTo('reflexion')" class="group cursor-pointer p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 hover:border-brand-purple dark:hover:border-brand-cyan transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">💬</div>
+            <h3 class="font-heading text-lg font-bold group-hover:text-brand-purple dark:group-hover:text-brand-cyan transition-colors">Espacio de Reflexión</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Crea tu propio compromiso por una convivencia sana e interactúa en el muro de respeto digital.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 2: ¿QUÉ SON LAS VIOLENCIAS DIGITALES? -->
+    <section id="sec-tipos" class="hidden space-y-8 animate-fade-in">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">¿Qué son las Violencias Digitales?</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          Son acciones intencionadas a través de medios digitales (redes, juegos, mensajería) que buscan dañar, chantajear, humillar o violentar la privacidad y dignidad de las personas.
+        </p>
+      </div>
+
+      <!-- Filter / Category Tabs -->
+      <div class="flex flex-wrap justify-center gap-2 border-b border-gray-200 dark:border-gray-800 pb-4">
+        <button onclick="filterViolences('all')" class="v-tab-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-brand-purple text-white" data-filter="all">Todas</button>
+        <button onclick="filterViolences('ciberbullying')" class="v-tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-brand-purple/20" data-filter="ciberbullying">Ciberbullying</button>
+        <button onclick="filterViolences('grooming')" class="v-tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-brand-purple/20" data-filter="grooming">Grooming</button>
+        <button onclick="filterViolences('sextorsion')" class="v-tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-brand-purple/20" data-filter="sextorsion">Sextorsión</button>
+        <button onclick="filterViolences('difusion')" class="v-tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-brand-purple/20" data-filter="difusion">Difusión no Consentida</button>
+        <button onclick="filterViolences('odio')" class="v-tab-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-brand-purple/20" data-filter="odio">Discursos de Odio</button>
+      </div>
+
+      <!-- Interactive Cards Grid -->
+      <div id="violences-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamic Cards Inserted via JavaScript -->
+      </div>
+    </section>
+
+
+    <!-- SECTION 3: SIMULADOR DE SITUACIONES -->
+    <section id="sec-simulador" class="hidden space-y-8 animate-fade-in">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-brand-cyan text-xs font-bold uppercase tracking-wider">Simulador de Toma de Decisiones</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">¿Qué harías en estas situaciones?</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          Afronta casos reales de la vida cotidiana en internet. Selecciona una respuesta para descubrir cuál es el camino más seguro y proteger tu bienestar.
+        </p>
+      </div>
+
+      <!-- Simulator Interactive App Container -->
+      <div class="max-w-3xl mx-auto bg-white dark:bg-brand-darkCard rounded-3xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 shadow-xl">
+        <!-- Scenario Header Stepper -->
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-800">
+          <div class="flex items-center gap-2">
+            <span id="sim-step-badge" class="w-8 h-8 rounded-full gradient-bg text-white font-bold flex items-center justify-center text-sm">1</span>
+            <span class="font-heading font-semibold text-sm sm:text-base">Caso <span id="sim-current-num">1</span> de <span id="sim-total-num">4</span></span>
+          </div>
+          <button onclick="restartSimulator()" class="text-xs text-gray-500 hover:text-brand-purple dark:hover:text-brand-cyan flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Reiniciar Simulador
+          </button>
+        </div>
+
+        <!-- Scenario Content Card -->
+        <div id="sim-card" class="space-y-6">
+          <!-- Inject Scenario Details -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 4: TEST DE CONOCIMIENTOS -->
+    <section id="sec-test" class="hidden space-y-8 animate-fade-in">
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">Desafío de 10 Preguntas</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">Test de Ciberseguridad</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          Demuestra cuánto sabes sobre protección de datos, leyes digitales y prevención de violencias virtuales.
+        </p>
+      </div>
+
+      <!-- Quiz Box Container -->
+      <div class="max-w-3xl mx-auto bg-white dark:bg-brand-darkCard rounded-3xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 shadow-xl">
+        
+        <!-- Quiz Progress Bar -->
+        <div id="quiz-header" class="space-y-2 mb-6">
+          <div class="flex justify-between text-xs font-semibold text-gray-500 dark:text-gray-400">
+            <span>Pregunta <span id="quiz-num">1</span>/10</span>
+            <span id="quiz-score-live">Puntaje: 0 pts</span>
+          </div>
+          <div class="w-full bg-gray-200 dark:bg-gray-800 h-2.5 rounded-full overflow-hidden">
+            <div id="quiz-progress" class="gradient-bg h-full w-[10%] transition-all duration-300"></div>
+          </div>
+        </div>
+
+        <!-- Question Body -->
+        <div id="quiz-body" class="space-y-6">
+          <!-- Dynamic Quiz Questions -->
+        </div>
+
+        <!-- Quiz Result Dashboard (Hidden by default) -->
+        <div id="quiz-result" class="hidden text-center space-y-6 py-4">
+          <div class="w-24 h-24 mx-auto rounded-full gradient-bg flex items-center justify-center text-4xl shadow-xl shadow-brand-purple/40 animate-bounce">
+            🏆
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-extrabold font-heading">¡Test Completado!</h3>
+          <p id="quiz-feedback-text" class="text-base text-gray-600 dark:text-gray-300 max-w-lg mx-auto"></p>
+
+          <div class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 max-w-md mx-auto space-y-2">
+            <p class="text-sm text-gray-500">Puntaje Obtenido:</p>
+            <p id="quiz-final-score" class="text-4xl font-extrabold gradient-text">0 / 100 XP</p>
+            <p id="quiz-accuracy" class="text-xs font-semibold text-gray-400">Respuestas correctas: 0 de 10</p>
+          </div>
+
+          <!-- Review incorrect answers list -->
+          <div id="quiz-breakdown" class="text-left space-y-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+            <h4 class="font-heading font-bold text-lg">Resumen de tus respuestas:</h4>
+            <div id="quiz-breakdown-list" class="space-y-3 max-h-60 overflow-y-auto pr-2"></div>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-4 pt-4">
+            <button onclick="restartQuiz()" class="px-6 py-3 rounded-xl gradient-bg text-white font-bold hover:scale-105 transition-all">
+              Reintentar Test
+            </button>
+            <button onclick="navigateTo('ayuda')" class="px-6 py-3 rounded-xl bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 font-bold transition-all">
+              Ver Guía de Ayuda
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SECTION 5: ¿QUÉ HACER SI SOY VÍCTIMA? (RECURSOS ARGENTINA) -->
+    <section id="sec-ayuda" class="hidden space-y-12 animate-fade-in">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 text-xs font-bold uppercase tracking-wider">Protocolo de Acción Urgente</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">¿Qué hacer si vives o presencias violencia digital?</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          No estás solo/a ni tenés la culpa. Seguí estos pasos fundamentales para protegerte y pedir auxilio de inmediato.
+        </p>
+      </div>
+
+      <!-- Step-by-Step Interactive Guide -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Step 1 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-4 relative overflow-hidden">
+          <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 font-extrabold flex items-center justify-center text-lg">1</div>
+          <h3 class="font-heading font-bold text-lg">1. NO RESPONDER</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            No reacciones a las provocaciones, insultos o chantajes. Los agresores buscan generar temor o rabia para continuar.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-4 relative overflow-hidden">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 font-extrabold flex items-center justify-center text-lg">2</div>
+          <h3 class="font-heading font-bold text-lg">2. GUARDAR PRUEBAS</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Captura de pantalla de chats, perfiles, enlaces y fechas. <strong>Importante:</strong> no reenvíes ni difundas material íntimo.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-4 relative overflow-hidden">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 font-extrabold flex items-center justify-center text-lg">3</div>
+          <h3 class="font-heading font-bold text-lg">3. BLOQUEAR Y DENUNCIAR</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Usa las herramientas de las plataformas (Instagram, TikTok, WhatsApp, juegos) para reportar las cuentas agresoras.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-4 relative overflow-hidden">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 font-extrabold flex items-center justify-center text-lg">4</div>
+          <h3 class="font-heading font-bold text-lg">4. BUSCAR AYUDA</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Avisale a un adulto de confianza (padres, docentes, preceptores) o ponte en contacto directo con líneas especializadas.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Argentina Help Hotline Direct Directory -->
+      <div class="bg-gradient-to-r from-brand-darkCard to-brand-darkBg p-8 rounded-3xl border border-brand-purple/30 space-y-6">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-gray-800 pb-4">
+          <div>
+            <h3 class="text-2xl font-bold font-heading text-white">Canales Gratuitos y Oficiales de Ayuda en Argentina</h3>
+            <p class="text-sm text-gray-400">Atención gratuita, confidencial y disponible las 24 horas.</p>
+          </div>
+          <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full text-xs font-bold">Líneas Gratuitas 24/7</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Linea 102 -->
+          <div class="p-5 rounded-2xl bg-brand-darkCard/90 border border-gray-800 hover:border-brand-cyan transition-all space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-2xl font-extrabold text-brand-cyan">Línea 102</span>
+              <span class="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded font-bold">Nacional</span>
+            </div>
+            <h4 class="font-bold text-white text-base">Secretaría de Niñez, Adolescencia y Familia</h4>
+            <p class="text-xs text-gray-400">Espacio confidencial para niñas, niños y adolescentes donde podés hablar, consultar o pedir ayuda.</p>
+            <button onclick="copyToClipboard('102')" class="w-full py-2 rounded-xl bg-brand-purple/30 hover:bg-brand-purple text-xs font-bold text-white transition-colors flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              Copiar Número (102)
+            </button>
+          </div>
+
+          <!-- Grooming Argentina -->
+          <div class="p-5 rounded-2xl bg-brand-darkCard/90 border border-gray-800 hover:border-brand-purple transition-all space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-2xl font-extrabold text-brand-purple">Grooming ARG</span>
+              <span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-bold">ONG Especializada</span>
+            </div>
+            <h4 class="font-bold text-white text-base">Grooming Argentina</h4>
+            <p class="text-xs text-gray-400">Asistencia técnica y jurídica ante situaciones de acoso sexual hacia menores en internet.</p>
+            <a href="https://groomingargentina.org" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-xl bg-brand-purple/30 hover:bg-brand-purple text-xs font-bold text-white transition-colors flex items-center justify-center gap-2 text-center">
+              🌐 Web Oficial Grooming Arg
+            </a>
+          </div>
+
+          <!-- Linea 137 -->
+          <div class="p-5 rounded-2xl bg-brand-darkCard/90 border border-gray-800 hover:border-brand-cyan transition-all space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-2xl font-extrabold text-rose-400">Línea 137</span>
+              <span class="text-xs bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">Violencia Sexual / Familiar</span>
+            </div>
+            <h4 class="font-bold text-white text-base">Programa Las Víctimas Contra Las Violencias</h4>
+            <p class="text-xs text-gray-400">Atención profesional las 24 hs para acompañar víctimas de violencia o abuso sexual en todo el país.</p>
+            <button onclick="copyToClipboard('137')" class="w-full py-2 rounded-xl bg-brand-purple/30 hover:bg-brand-purple text-xs font-bold text-white transition-colors flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              Copiar Número (137)
+            </button>
+          </div>
+
+          <!-- Ciberdelito Fiscalias -->
+          <div class="p-5 rounded-2xl bg-brand-darkCard/90 border border-gray-800 hover:border-brand-cyan transition-all space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-2xl font-extrabold text-indigo-400">UFECI</span>
+              <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded font-bold">Fiscalía Ciberdelitos</span>
+            </div>
+            <h4 class="font-bold text-white text-base">Unidad Fiscal Especializada en Ciberdelincuencia</h4>
+            <p class="text-xs text-gray-400">Denuncias directas sobre extorsión, hackeo de cuentas, ciberdelitos y Grooming en Argentina.</p>
+            <button onclick="copyToClipboard('denunciasufeci@mpf.gov.ar')" class="w-full py-2 rounded-xl bg-brand-purple/30 hover:bg-brand-purple text-xs font-bold text-white transition-colors flex items-center justify-center gap-2">
+              ✉️ Copiar Email UFECI
+            </button>
+          </div>
+
+          <!-- Inadi / Defensoria -->
+          <div class="p-5 rounded-2xl bg-brand-darkCard/90 border border-gray-800 hover:border-brand-purple transition-all space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-2xl font-extrabold text-emerald-400">INADI / Defensoría</span>
+              <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold">Discriminación</span>
+            </div>
+            <h4 class="font-bold text-white text-base">Asistencia por Discriminación y Odio Digital</h4>
+            <p class="text-xs text-gray-400">Orientación ante agresiones por orientación sexual, género, religión o aspectos físicos en la red.</p>
+            <button onclick="copyToClipboard('168')" class="w-full py-2 rounded-xl bg-brand-purple/30 hover:bg-brand-purple text-xs font-bold text-white transition-colors flex items-center justify-center gap-2">
+              📞 Copiar Número (168)
+            </button>
+          </div>
+
+          <!-- Emergency 911 -->
+          <div class="p-5 rounded-2xl bg-brand-darkCard/90 border border-gray-800 hover:border-rose-500 transition-all space-y-3">
+            <div class="flex justify-between items-start">
+              <span class="text-2xl font-extrabold text-rose-500">911</span>
+              <span class="text-xs bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">Urgencia Inmediata</span>
+            </div>
+            <h4 class="font-bold text-white text-base">Policía / Emergencias</h4>
+            <p class="text-xs text-gray-400">En caso de amenazas físicas inmediatas, acoso presencial o peligro inminente llama al 911.</p>
+            <button onclick="copyToClipboard('911')" class="w-full py-2 rounded-xl bg-rose-600/30 hover:bg-rose-600 text-xs font-bold text-white transition-colors flex items-center justify-center gap-2">
+              🚨 Copiar Número (911)
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 6: MITOS Y REALIDADES -->
+    <section id="sec-mitos" class="hidden space-y-8 animate-fade-in">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-wider">Juego de Verdadero o Falso</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">Mitos y Realidades del Mundo Digital</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          Haz clic en cada tarjeta para votar si la afirmación es **Verdadera** o **Falsa** y descubre la explicación.
+        </p>
+      </div>
+
+      <div id="myths-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Dynamic Interactive Myth Cards -->
+      </div>
+    </section>
+
+
+    <!-- SECTION 7: ESPACIO DE REFLEXIÓN -->
+    <section id="sec-reflexion" class="hidden space-y-12 animate-fade-in">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-wider">Muro de Convivencia Sana</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">Espacio de Reflexión y Compromisos</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          Internet la construimos entre todos y todas. El respeto, la empatía y la protección mutua hacen de las redes un lugar mejor.
+        </p>
+      </div>
+
+      <!-- Reflection Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-3">
+          <span class="text-3xl">🕊️</span>
+          <h3 class="font-heading font-bold text-lg">Empatía Digital</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+            Antes de comentar, enviar un meme burlesco o compartir un video, pregúntate: ¿Cómo me sentiría si me lo hicieran a mí?
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-3">
+          <span class="text-3xl">🔐</span>
+          <h3 class="font-heading font-bold text-lg">Huella e Identidad</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+            Todo lo que publicamos, guardamos o compartimos deja un rastro digital. Proteger tu privacidad es proteger tu futuro.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-3">
+          <span class="text-3xl">🤝</span>
+          <h3 class="font-heading font-bold text-lg">Solidaridad entre Pares</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+            Si ves que alguien sufre burlas en un grupo o chat, no te calles ni compartas. Defender a otros es de personas valientes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Wall of Commitments -->
+      <div class="bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <h3 class="text-xl font-bold font-heading flex items-center gap-2">
+          <span>✍️</span> Sumá tu Compromiso Digital
+        </h3>
+
+        <!-- Preset Commitments Buttons -->
+        <div class="space-y-3">
+          <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold">Seleccioná una promesa de la lista o escribe la tuya propia:</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="selectPresetPledge('Prometo no reenviar fotos ni videos privados sin permiso.')" class="pledge-chip text-xs px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-brand-purple hover:text-white transition-colors">"Prometo no reenviar fotos privadas"</button>
+            <button onclick="selectPresetPledge('Defenderé a mis compañeros si sufren ataques en juegos online.')" class="pledge-chip text-xs px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-brand-purple hover:text-white transition-colors">"Defenderé a quienes sufran bullying"</button>
+            <button onclick="selectPresetPledge('Verificaré la información antes de compartir noticias o rumores.')" class="pledge-chip text-xs px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-brand-purple hover:text-white transition-colors">"No difundiré rumores falsos"</button>
+            <button onclick="selectPresetPledge('Nunca compartiré mis contraseñas ni datos personales con desconocidos.')" class="pledge-chip text-xs px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-brand-purple hover:text-white transition-colors">"Cuidaré mis claves y datos"</button>
+          </div>
+        </div>
+
+        <!-- Custom Pledge Input Form -->
+        <form id="pledge-form" onsubmit="addCommitment(event)" class="flex gap-2">
+          <input type="text" id="pledge-input" placeholder="Escribí tu propio compromiso por una internet sin violencia..." required class="flex-grow px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-brand-darkBg text-sm focus:outline-none focus:ring-2 focus:ring-brand-purple">
+          <button type="submit" class="px-6 py-3 rounded-xl gradient-bg text-white font-bold text-sm hover:scale-105 transition-transform flex items-center gap-1">
+            <span>Publicar</span>
+          </button>
+        </form>
+
+        <!-- Dynamic Wall Feed -->
+        <div class="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-800">
+          <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400">Compromisos de la comunidad:</h4>
+          <div id="pledges-feed" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-80 overflow-y-auto pr-2">
+            <!-- Dynamic Pledges -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-16 bg-white dark:bg-brand-darkCard border-t border-gray-200 dark:border-gray-800 py-8 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="space-y-1">
+        <p class="font-heading font-extrabold text-brand-purple dark:text-brand-cyan text-lg">Conectados Sin Violencia</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Iniciativa educativa digital para la convivencia digital respetuosa en adolescentes.</p>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-semibold text-gray-500 dark:text-gray-400">
+        <button onclick="resetAllProgress()" class="hover:text-rose-500 transition-colors flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          Reiniciar Puntos e Historial
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- APPLICATION LOGIC & INTERACTION SCRIPT -->
+  <script>
+    /* ==========================================================================
+       1. GLOBAL STATE & USER PROGRESS DATA
+       ========================================================================== */
+    let appState = {
+      xp: 0,
+      unlockedBadges: [],
+      learnedTypes: [],
+      currentSimIndex: 0,
+      quizAnswers: [],
+      userPledges: [
+        "Prometo no reenviar fotos ni videos privados sin consentimiento.",
+        "Defenderé a mis amigos en redes si veo agresiones o ciberbullying.",
+        "Trataré a todas las personas en internet con el mismo respeto que cara a cara."
+      ]
+    };
+
+    /* ==========================================================================
+       2. DATA DEFINITIONS
+       ========================================================================== */
+
+    // Digital Violence Types Database
+    const VIOLENCE_TYPES = [
+      {
+        id: 'ciberbullying',
+        title: 'Ciberbullying',
+        tag: 'Acoso entre Pares',
+        icon: '💬',
+        desc: 'Acoso o hostigamiento reiterado mediante chats, comentarios o imágenes entre compañeros o adolescentes.',
+        example: 'Crear un grupo de WhatsApp dedicado exclusivamente a burlarse del aspecto físico de un compañero de escuela.',
+        prevention: 'No te sumes a las burlas ni compartas el contenido. Reportá el grupo, bloqueá a los agresores y contáselo a un tutor o docente.',
+        xpReward: 10
+      },
+      {
+        id: 'grooming',
+        title: 'Grooming',
+        tag: 'Acoso Adulto-Menor',
+        icon: '⚠️',
+        desc: 'Cuando una persona adulta engaña o crea un perfil falso en internet para ganarse la confianza de un adolescente con fines de abuso sexual.',
+        example: 'Un perfil con foto de chico joven te pide fotos íntimas o encontrarse a solas prometiendo regalos o secretos.',
+        prevention: 'Nunca compartas fotos personales con extraños ni aceptes citas a solas. Ante cualquier sospecha, no borres los chats y avisa urgente a un adulto.',
+        xpReward: 10
+      },
+      {
+        id: 'sextorsion',
+        title: 'Sextorsión',
+        tag: 'Chantaje Digital',
+        icon: '🔒',
+        desc: 'Chantaje o amenaza de publicar fotos o videos íntimos de la víctima si esta no cumple con demandas de dinero o más imágenes.',
+        example: 'Alguien a quien le mandaste una foto íntima amenaza con publicarla en redes sociales si no le envías más material.',
+        prevention: 'No cedas al chantaje. Cortá la comunicación inmediatamente, guarda capturas de los mensajes y denuncia a la policía o en la Línea 102.',
+        xpReward: 10
+      },
+      {
+        id: 'difusion',
+        title: 'Difusión no Consentida',
+        tag: 'Violación de Privacidad',
+        icon: '📸',
+        desc: 'Publicar o viralizar imágenes, videos o audios íntimos de una persona sin su conocimiento o autorización.',
+        example: 'Reenviar en un canal de Telegram una imagen privada que alguien compartió en confianza.',
+        prevention: 'Recordá: compartir material íntimo ajeno sin permiso es un delito y vulnera derechos. Borrá la imagen y no contribuyas a difundir.',
+        xpReward: 10
+      },
+      {
+        id: 'odio',
+        title: 'Discursos de Odio',
+        tag: 'Discriminación',
+        icon: '🛑',
+        desc: 'Mensajes que promueven la violencia, el rechazo o la humillación hacia personas por su género, etnia, religión u orientación sexual.',
+        example: 'Llenar de insultos discriminatorios el perfil de un creador de contenido por su origen o identidad.',
+        prevention: 'No valides ni des "me gusta" a publicaciones de odio. Utilizá los botones de denuncia de la plataforma e inhabilitá comentarios agresivos.',
+        xpReward: 10
+      },
+      {
+        id: 'amenazas',
+        title: 'Amenazas y Acoso',
+        tag: 'Hostigamiento Directo',
+        icon: '🚨',
+        desc: 'Envío constante de mensajes intimidantes, persecución en múltiples redes o intentos de robo de cuentas.',
+        example: 'Recibir decenas de mensajes diarios amenazando con vulnerar tus cuentas o hacerte daño si no respondes.',
+        prevention: 'Configurá tu perfil como privado, activa la autenticación en dos pasos (2FA) y realiza la denuncia formal junto a tus tutores.',
+        xpReward: 10
+      }
+    ];
+
+    // Simulator Scenarios
+    const SIMULATOR_SCENARIOS = [
+      {
+        id: 1,
+        title: 'Solicitud sospechosa en Instagram',
+        situation: 'Un perfil con pocos seguidores y foto de modelo te envía un mensaje privado diciendo: "Hola, te vi en recomendados y me encantaste. ¿Me mandás una foto tuya en el espejo para conocernos mejor?".',
+        options: [
+          {
+            text: 'A) Mandarle la foto en el espejo para no parecer aburrido/a.',
+            isCorrect: false,
+            feedback: '⚠️ RIESGO ALTO: Nunca envíes fotografías a personas desconocidas en internet. No sabes quién está realmente detrás del perfil y podría ser utilizado para chantajes o Grooming.'
+          },
+          {
+            text: 'B) No responder, bloquear el perfil y reportar la cuenta.',
+            isCorrect: true,
+            feedback: '✅ ¡EXCELENTE DECISIÓN! Bloquear y reportar es la respuesta más segura. Evitaste exponer tu privacidad a un desconocido.',
+            xp: 25
+          },
+          {
+            text: 'C) Insultar a la persona por mensaje privado para que no vuelva a molestar.',
+            isCorrect: false,
+            feedback: '❌ NO RECOMENDADO: Responder con agresividad puede escalar el conflicto. Lo mejor es no entablar diálogo, bloquear directamente y avisar a un adulto si insiste.'
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: 'Acoso tóxico en un videojuego online',
+        situation: 'Durante una partida en equipo, un jugador comienza a insultarte por el micrófono, burlándose de tu voz y amenazando con hackear tu cuenta si no abandonas la partida.',
+        options: [
+          {
+            text: 'A) Silenciar (Mute), reportar dentro del juego y seguir jugando con tranquilidad.',
+            isCorrect: true,
+            feedback: '✅ ¡OPCIÓN CORRECTA! Los juegos disponen de herramientas de silenciamiento y reporte. Cuidaste tu paz mental sin engancharte en su agresión.',
+            xp: 25
+          },
+          {
+            text: 'B) Darle tu contraseña para demostrarle que no tienes miedo.',
+            isCorrect: false,
+            feedback: '⚠️ PELIGRO CRÍTICO: Jamás compartas tus contraseñas ni accesos con nadie en internet. Podrían robarte la cuenta y tu información personal.'
+          },
+          {
+            text: 'C) Devolverle los insultos con más violencia para que se calle.',
+            isCorrect: false,
+            feedback: '❌ INADECUADO: Reaccionar con agresión genera un ambiente aún más tóxico y podrías ser sancionado/a tú también por la plataforma.'
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: 'Foto privada filtrada en un grupo de chat',
+        situation: 'Un compañero envía al grupo del curso una foto comprometedora y privada de otra compañera. Muchos se están riendo y enviando emojis burlescos.',
+        options: [
+          {
+            text: 'A) Reenviar la foto a otros amigos para que se enteren del chisme.',
+            isCorrect: false,
+            feedback: '❌ DELITO Y VULNERACIÓN: Difundir o reenviar imágenes íntimas sin consentimiento causa un enorme daño psicológico a la víctima y constituye una falta grave.'
+          },
+          {
+            text: 'B) Guardar silencio y darle "me gusta" a los mensajes de burla.',
+            isCorrect: false,
+            feedback: '⚠️ COMPLICIDAD: Ser espectador pasivo o validar las burlas contribuye al ciberbullying. El silencio perjudica a la persona agredida.'
+          },
+          {
+            text: 'C) Escribir en el grupo pidiendo que borren la foto, apoyar a tu compañera y avisar a un profesor o tutor.',
+            isCorrect: true,
+            feedback: '✅ ¡ACTITUD VALIENTE Y EMPÁTICA! Intervenir con respeto para frenar la viralización protege a la persona afectada y fomenta un ambiente sano.',
+            xp: 25
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: 'Chantaje por mensaje privado',
+        situation: 'Alguien que conociste en una red social te dice que tiene capturas de tus conversaciones privadas y que las publicará si no le transfieres dinero o le mandas más contenido.',
+        options: [
+          {
+            text: 'A) Pagarle o darle lo que pide con la esperanza de que se olvide.',
+            isCorrect: false,
+            feedback: '❌ FALSO ALIVIO: Quien extorsiona nunca se detiene tras el primer pago. Ceder solo aumenta las demandas de chantaje.'
+          },
+          {
+            text: 'B) Sacar capturas de las amenazas, no borrar el chat, no pagar nada y denunciar con tus tutores en la fiscalía o Línea 102.',
+            isCorrect: true,
+            feedback: '✅ ¡RESPUESTA CORRECTA Y SEGURA! Las pruebas guardadas sirven para iniciar la investigación legal. Pedir ayuda a los adultos es clave.',
+            xp: 25
+          },
+          {
+            text: 'C) Borrar tu cuenta y esconder la situación por vergüenza sin contarle a nadie.',
+            isCorrect: false,
+            feedback: '⚠️ NO TE AISLES: No tenés la culpa de ser víctima de una extorsión. Es muy importante que busques apoyo para solucionar el problema de raíz.'
+          }
+        ]
+      }
+    ];
+
+    // Quiz Questions Database
+    const QUIZ_QUESTIONS = [
+      {
+        q: '1. ¿Qué es la autenticación en dos pasos (2FA)?',
+        options: ['Un tipo de virus', 'Una capa extra de seguridad para proteger tus cuentas con un código adicional', 'Una aplicación para editar fotos', 'Un filtro de Instagram'],
+        correct: 1,
+        exp: 'La 2FA exige un código enviado a tu celular además de tu clave, impidiendo que hackers ingresen aunque adivinen tu contraseña.'
+      },
+      {
+        q: '2. Si recibes mensajes persistentes de acoso o amenazas, ¿cuál es el primer paso recomendado?',
+        options: ['Insultar al agresor', 'Guardar capturas de pantalla de prueba y bloquear la cuenta', 'Borrar todas tus fotos', 'Ignorar para siempre sin guardar pruebas'],
+        correct: 1,
+        exp: 'Guardar las evidencias es fundamental si luego se realiza una denuncia formal ante autoridades.'
+      },
+      {
+        q: '3. ¿Qué número telefónico en Argentina brinda atención gratuita y confidencial a niños y adolescentes las 24 horas?',
+        options: ['Línea 102', 'Línea 100', 'Línea 0800-Internet', 'Línea 911 exclusivo chats'],
+        correct: 0,
+        exp: 'La Línea 102 es el servicio oficial de protección de derechos de niños, niñas y adolescentes en Argentina.'
+      },
+      {
+        q: '4. ¿Es legal difundir imágenes o videos íntimos de otra persona sin su permiso?',
+        options: ['Sí, si fue enviada por chat privado', 'No, es una grave violación de la privacidad e implica responsabilidad legal', 'Sí, si es en un grupo cerrado', 'Solo si no se ve el rostro'],
+        correct: 1,
+        exp: 'La difusión no consentida de material íntimo atenta contra la integridad de las personas y está penalizada.'
+      },
+      {
+        q: '5. ¿Qué significa el término "Grooming"?',
+        options: ['Aprender a programar juegos', 'Engaño de un adulto hacia un menor en internet para cometer abuso sexual', 'Comprar seguidores en redes', 'Limpiar el historial del navegador'],
+        correct: 1,
+        exp: 'El Grooming es un delito donde un adulto se hace pasar por joven para vulnerar la integridad de niños o adolescentes.'
+      },
+      {
+        q: '6. ¿Qué debes hacer si un juego o aplicación te pide acceso a tus contactos y ubicación sin justificación?',
+        options: ['Aceptar todo sin leer', 'Rechazar los permisos innecesarios o desinstalar la app sospechosa', 'Darle la ubicación exacta de tu casa', 'Desactivar el antivirus'],
+        correct: 1,
+        exp: 'Muchas apps juntan datos personales innecesarios. Cuidar tus permisos es cuidar tu huella digital.'
+      },
+      {
+        q: '7. ¿Qué es recomendable hacer si presencias ciberbullying hacia un compañero en un grupo de chat?',
+        options: ['Unirte a las risas para encajar', 'No reaccionar ni compartir, apoyar a la víctima y avisar a un adulto', 'Reenviar los mensajes', 'Salir del grupo sin ayudar'],
+        correct: 1,
+        exp: 'No ser espectador ni cómplice rompe la cadena del acoso digital.'
+      },
+      {
+        q: '8. Si alguien te extorsiona pidiendo dinero a cambio de no publicar algo personal, debés:',
+        options: ['Pagarle inmediatamente', 'No transferir dinero, no borrar el chat y hacer la denuncia con ayuda de tus adultos', 'Pedirle prestado dinero a un amigo', 'Enviar más fotos'],
+        correct: 1,
+        exp: 'Nunca hay que pagar a un extorsionador. Hay que recolectar la prueba y denunciar.'
+      },
+      {
+        q: '9. ¿Qué información NUNCA debe ser compartida en perfiles públicos?',
+        options: ['Tu canción favorita', 'Tu dirección de casa, colegio al que vas y teléfonos de tus padres', 'Tus dibujos o hobbies', 'Tus videojuegos preferidos'],
+        correct: 1,
+        exp: 'Compartir ubicaciones exactas o rutinas expone tu seguridad física en el mundo real.'
+      },
+      {
+        q: '10. ¿Qué se entiende por "Huella Digital"?',
+        options: ['El sensor para desbloquear el celular', 'El rastro de datos, comentarios y fotos que dejamos al usar internet', 'Una marca de estafa', 'La velocidad de tu Wi-Fi'],
+        correct: 1,
+        exp: 'Todo lo que publicamos construye nuestro historial en la web y puede permanecer allí por mucho tiempo.'
+      }
+    ];
+
+    // Myths Database
+    const MYTHS_DATA = [
+      {
+        id: 'myth-1',
+        statement: '"Si borras un mensaje o foto de tus redes sociales, desaparece por completo para siempre."',
+        isTrue: false,
+        explanation: 'FALSO ❌. Cualquier persona pudo haber tomado una captura de pantalla antes de que lo borrases, o la plataforma puede conservar copias en sus servidores. Pensá bien antes de publicar.'
+      },
+      {
+        id: 'myth-2',
+        statement: '"Si usás un perfil falso o anónimo en internet, nadie puede saber quién sos en la vida real."',
+        isTrue: false,
+        explanation: 'FALSO ❌. Las autoridades y proveedores de internet pueden rastrear direcciones IP y datos de conexión ante delitos o denuncias formales. El anonimato total no existe.'
+      },
+      {
+        id: 'myth-3',
+        statement: '"Sextorsión y Grooming son delitos que pueden denunciarse legalmente en Argentina."',
+        isTrue: true,
+        explanation: 'VERDADERO ✅. En Argentina existen fiscalías especializadas (como la UFECI) y leyes específicas para sancionar el acoso y chantaje digital.'
+      },
+      {
+        id: 'myth-4',
+        statement: '"El acoso en los videojuegos online no es violento porque es solo un juego."',
+        isTrue: false,
+        explanation: 'FALSO ❌. La violencia psicológica, la humillación y las amenazas en juegos afectan las emociones reales de las personas. Detrás del avatar hay un ser humano.'
+      }
+    ];
+
+    /* ==========================================================================
+       3. NAVIGATION & UI FUNCTIONS
+       ========================================================================== */
+
+    function navigateTo(secId) {
+      // Hide all sections
+      const sections = ['inicio', 'tipos', 'simulador', 'test', 'ayuda', 'mitos', 'reflexion'];
+      sections.forEach(s => {
+        const el = document.getElementById(`sec-${s}`);
+        if (el) el.classList.add('hidden');
+        
+        const navBtn = document.getElementById(`nav-${s}`);
+        if (navBtn) {
+          navBtn.classList.remove('text-brand-purple', 'dark:text-brand-cyan', 'font-bold', 'bg-brand-purple/10');
+        }
+      });
+
+      // Show selected section
+      const targetSec = document.getElementById(`sec-${secId}`);
+      if (targetSec) {
+        targetSec.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Highlight active nav button
+      const activeNav = document.getElementById(`nav-${secId}`);
+      if (activeNav) {
+        activeNav.classList.add('text-brand-purple', 'dark:text-brand-cyan', 'font-bold', 'bg-brand-purple/10');
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        document.getElementById('theme-sun').classList.add('hidden');
+        document.getElementById('theme-moon').classList.remove('hidden');
+      } else {
+        html.classList.add('dark');
+        document.getElementById('theme-sun').classList.remove('hidden');
+        document.getElementById('theme-moon').classList.add('hidden');
+      }
+    }
+
+    function toggleContrast() {
+      document.body.classList.toggle('tracking-wide');
+      document.body.classList.toggle('contrast-125');
+      showToast('👁️ Ajuste de legibilidad modificado');
+    }
+
+    function showToast(msg, icon = '✨') {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      document.getElementById('toast-icon').textContent = icon;
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    function addXP(amount) {
+      appState.xp += amount;
+      document.getElementById('global-xp').textContent = appState.xp;
+      checkBadges();
+      showToast(`¡Ganaste +${amount} XP!`, '⭐');
+    }
+
+    function checkBadges() {
+      if (appState.learnedTypes.length >= 3 && !appState.unlockedBadges.includes('mitos')) {
+        appState.unlockedBadges.push('mitos');
+        const b1 = document.getElementById('badge-mitos');
+        if (b1) b1.classList.remove('opacity-40');
+      }
+      if (appState.currentSimIndex >= 2 && !appState.unlockedBadges.includes('simulador')) {
+        appState.unlockedBadges.push('simulador');
+        const b2 = document.getElementById('badge-simulador');
+        if (b2) b2.classList.remove('opacity-40');
+      }
+      if (appState.xp >= 100 && !appState.unlockedBadges.includes('test')) {
+        appState.unlockedBadges.push('test');
+        const b3 = document.getElementById('badge-test');
+        if (b3) b3.classList.remove('opacity-40');
+      }
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`Copiado al portapapeles: ${text}`, '📋');
+      }).catch(() => {
+        // Fallback execution
+        const dummy = document.createElement('textarea');
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        showToast(`Copiado: ${text}`, '📋');
+      });
+    }
+
+    /* ==========================================================================
+       4. SECTION 2: VIOLENCE TYPES RENDER & FILTER
+       ========================================================================== */
+
+    function renderViolenceTypes(filter = 'all') {
+      const grid = document.getElementById('violences-grid');
+      grid.innerHTML = '';
+
+      const items = filter === 'all' ? VIOLENCE_TYPES : VIOLENCE_TYPES.filter(v => v.id === filter);
+
+      items.forEach(item => {
+        const isLearned = appState.learnedTypes.includes(item.id);
+        const card = document.createElement('div');
+        card.className = 'rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 p-6 flex flex-col justify-between space-y-4 hover:border-brand-purple transition-all shadow-md';
+        
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">${item.icon}</span>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-brand-purple/10 text-brand-purple dark:text-brand-cyan font-semibold">${item.tag}</span>
+            </div>
+            <h3 class="font-heading font-bold text-xl">${item.title}</h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">${item.desc}</p>
+            
+            <div class="p-3 rounded-xl bg-gray-50 dark:bg-brand-darkBg/60 text-xs space-y-1">
+              <strong class="text-brand-purple dark:text-brand-cyan block">Ejemplo real:</strong>
+              <p class="text-gray-500 dark:text-gray-400">${item.example}</p>
+            </div>
+
+            <div class="p-3 rounded-xl bg-emerald-500/10 text-xs space-y-1">
+              <strong class="text-emerald-400 block">💡 Consejo de prevención:</strong>
+              <p class="text-gray-600 dark:text-gray-300">${item.prevention}</p>
+            </div>
+          </div>
+
+          <button onclick="markLearned('${item.id}')" ${isLearned ? 'disabled' : ''} class="w-full py-2.5 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 ${
+            isLearned 
+              ? 'bg-emerald-500/20 text-emerald-400 cursor-default' 
+              : 'gradient-bg text-white hover:scale-102 shadow-md'
+          }">
+            ${isLearned ? '✓ Aprendido (+10 XP)' : '¡Entendido! (+10 XP)'}
+          </button>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterViolences(cat) {
+      document.querySelectorAll('.v-tab-btn').forEach(btn => {
+        if (btn.dataset.filter === cat) {
+          btn.classList.add('bg-brand-purple', 'text-white');
+          btn.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-300');
+        } else {
+          btn.classList.remove('bg-brand-purple', 'text-white');
+          btn.classList.add('bg-gray-200', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-300');
+        }
+      });
+      renderViolenceTypes(cat);
+    }
+
+    function markLearned(id) {
+      if (!appState.learnedTypes.includes(id)) {
+        appState.learnedTypes.push(id);
+        addXP(10);
+        renderViolenceTypes();
+      }
+    }
+
+    /* ==========================================================================
+       5. SECTION 3: SIMULATOR LOGIC
+       ========================================================================== */
+
+    function renderSimulator() {
+      const container = document.getElementById('sim-card');
+      const scenario = SIMULATOR_SCENARIOS[appState.currentSimIndex];
+
+      document.getElementById('sim-current-num').textContent = appState.currentSimIndex + 1;
+      document.getElementById('sim-total-num').textContent = SIMULATOR_SCENARIOS.length;
+      document.getElementById('sim-step-badge').textContent = appState.currentSimIndex + 1;
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold font-heading text-brand-purple dark:text-brand-cyan">${scenario.title}</h3>
+          <div class="p-4 rounded-2xl bg-gray-50 dark:bg-brand-darkBg border border-gray-200 dark:border-gray-800 text-sm sm:text-base leading-relaxed">
+            "${scenario.situation}"
+          </div>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Seleccioná tu decisión:</p>
+          ${scenario.options.map((opt, idx) => `
+            <button onclick="chooseSimOption(${idx})" class="w-full text-left p-4 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-brand-darkCard hover:border-brand-purple dark:hover:border-brand-cyan hover:bg-brand-purple/5 transition-all text-sm font-medium">
+              ${opt.text}
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function chooseSimOption(optIdx) {
+      const container = document.getElementById('sim-card');
+      const scenario = SIMULATOR_SCENARIOS[appState.currentSimIndex];
+      const selected = scenario.options[optIdx];
+
+      if (selected.isCorrect && selected.xp) {
+        addXP(selected.xp);
+      }
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="p-6 rounded-2xl ${selected.isCorrect ? 'bg-emerald-500/10 border border-emerald-500/30' : 'bg-rose-500/10 border border-rose-500/30'} space-y-3">
+            <h4 class="font-bold font-heading text-lg ${selected.isCorrect ? 'text-emerald-400' : 'text-rose-400'}">
+              ${selected.isCorrect ? '¡Excelente Decisión!' : 'Atención con esta opción'}
+            </h4>
+            <p class="text-sm leading-relaxed">${selected.feedback}</p>
+          </div>
+
+          <div class="flex justify-end gap-3 pt-2">
+            ${appState.currentSimIndex < SIMULATOR_SCENARIOS.length - 1 ? `
+              <button onclick="nextSimulatorStep()" class="px-6 py-3 rounded-xl gradient-bg text-white font-bold text-sm hover:scale-105 transition-all">
+                Siguiente Caso ➔
+              </button>
+            ` : `
+              <button onclick="finishSimulator()" class="px-6 py-3 rounded-xl gradient-bg text-white font-bold text-sm hover:scale-105 transition-all">
+                ¡Completar Simulador! 🎉
+              </button>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    function nextSimulatorStep() {
+      appState.currentSimIndex++;
+      renderSimulator();
+    }
+
+    function finishSimulator() {
+      showToast('¡Has completado todos los casos del simulador!', '🎉');
+      restartSimulator();
+    }
+
+    function restartSimulator() {
+      appState.currentSimIndex = 0;
+      renderSimulator();
+    }
+
+    /* ==========================================================================
+       6. SECTION 4: QUIZ LOGIC
+       ========================================================================== */
+
+    let quizCurrentIdx = 0;
+
+    function renderQuizQuestion() {
+      const body = document.getElementById('quiz-body');
+      const q = QUIZ_QUESTIONS[quizCurrentIdx];
+
+      document.getElementById('quiz-num').textContent = quizCurrentIdx + 1;
+      document.getElementById('quiz-progress').style.width = `${((quizCurrentIdx + 1) / QUIZ_QUESTIONS.length) * 100}%`;
+
+      body.innerHTML = `
+        <div class="space-y-4">
+          <h3 class="text-lg sm:text-xl font-bold font-heading">${q.q}</h3>
+          
+          <div class="space-y-2.5 pt-2">
+            ${q.options.map((opt, idx) => `
+              <button onclick="selectQuizAnswer(${idx})" class="w-full text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-brand-darkBg hover:border-brand-purple hover:bg-brand-purple/10 transition-all text-sm font-medium">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function selectQuizAnswer(optIdx) {
+      const q = QUIZ_QUESTIONS[quizCurrentIdx];
+      const isCorrect = optIdx === q.correct;
+
+      appState.quizAnswers.push({
+        qIndex: quizCurrentIdx,
+        userOpt: optIdx,
+        isCorrect: isCorrect
+      });
+
+      if (isCorrect) {
+        addXP(10);
+      }
+
+      quizCurrentIdx++;
+
+      if (quizCurrentIdx < QUIZ_QUESTIONS.length) {
+        renderQuizQuestion();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function showQuizResults() {
+      document.getElementById('quiz-header').classList.add('hidden');
+      document.getElementById('quiz-body').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+
+      const correctCount = appState.quizAnswers.filter(a => a.isCorrect).length;
+      const score = correctCount * 10;
+
+      document.getElementById('quiz-final-score').textContent = `${score} / 100 XP`;
+      document.getElementById('quiz-accuracy').textContent = `Respuestas correctas: ${correctCount} de ${QUIZ_QUESTIONS.length}`;
+
+      let feedbackMsg = '';
+      if (score === 100) feedbackMsg = '🌟 ¡Perfecto! Sos un/a experto/a absoluto/a en ciberseguridad y prevención digital.';
+      else if (score >= 70) feedbackMsg = '👏 ¡Muy bien! Tenés excelentes conocimientos sobre seguridad y convivencia digital.';
+      else feedbackMsg = '💪 ¡Buen intento! Repasá las secciones de ayuda y tipos de violencia para reforzar la seguridad.';
+
+      document.getElementById('quiz-feedback-text').textContent = feedbackMsg;
+
+      // Render breakdown list
+      const list = document.getElementById('quiz-breakdown-list');
+      list.innerHTML = appState.quizAnswers.map(ans => {
+        const q = QUIZ_QUESTIONS[ans.qIndex];
+        return `
+          <div class="p-3 rounded-xl ${ans.isCorrect ? 'bg-emerald-500/10 border border-emerald-500/30' : 'bg-rose-500/10 border border-rose-500/30'} text-xs space-y-1">
+            <p class="font-bold">${q.q}</p>
+            <p class="${ans.isCorrect ? 'text-emerald-400' : 'text-rose-400'}">Tu respuesta: ${q.options[ans.userOpt]}</p>
+            ${!ans.isCorrect ? `<p class="text-gray-400">Correcta: ${q.options[q.correct]}</p>` : ''}
+            <p class="text-gray-500 dark:text-gray-400 pt-1 border-t border-gray-700/30">💡 Explicación: ${q.exp}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function restartQuiz() {
+      quizCurrentIdx = 0;
+      appState.quizAnswers = [];
+      document.getElementById('quiz-header').classList.remove('hidden');
+      document.getElementById('quiz-body').classList.remove('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      renderQuizQuestion();
+    }
+
+    /* ==========================================================================
+       7. SECTION 6: MYTHS GAME LOGIC
+       ========================================================================== */
+
+    function renderMyths() {
+      const container = document.getElementById('myths-container');
+      container.innerHTML = '';
+
+      MYTHS_DATA.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'p-6 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-gray-800 space-y-4 shadow-md';
+        
+        card.innerHTML = `
+          <p class="font-heading font-bold text-base sm:text-lg text-gray-800 dark:text-gray-200">${m.statement}</p>
+          
+          <div id="btn-group-${m.id}" class="flex gap-3">
+            <button onclick="voteMyth('${m.id}', true)" class="flex-1 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 hover:text-white text-emerald-400 font-bold text-xs transition-colors">
+              VERDADERO
+            </button>
+            <button onclick="voteMyth('${m.id}', false)" class="flex-1 py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500 hover:text-white text-rose-400 font-bold text-xs transition-colors">
+              FALSO
+            </button>
+          </div>
+
+          <div id="reveal-${m.id}" class="hidden p-4 rounded-xl bg-gray-50 dark:bg-brand-darkBg text-xs space-y-2 border border-gray-200 dark:border-gray-800 animate-fade-in">
+            <span id="result-tag-${m.id}" class="font-bold block text-sm"></span>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">${m.explanation}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function voteMyth(mythId, userChoice) {
+      const myth = MYTHS_DATA.find(m => m.id === mythId);
+      const isCorrect = userChoice === myth.isTrue;
+
+      document.getElementById(`btn-group-${mythId}`).classList.add('hidden');
+      const reveal = document.getElementById(`reveal-${mythId}`);
+      const tag = document.getElementById(`result-tag-${mythId}`);
+
+      reveal.classList.remove('hidden');
+
+      if (isCorrect) {
+        tag.textContent = '¡Correcto! 🎉';
+        tag.className = 'font-bold block text-sm text-emerald-400';
+        addXP(10);
+      } else {
+        tag.textContent = 'Respuesta Incorrecta ⚠️';
+        tag.className = 'font-bold block text-sm text-rose-400';
+      }
+    }
+
+    /* ==========================================================================
+       8. SECTION 7: REFLECTION & COMMITMENT WALL
+       ========================================================================== */
+
+    function renderPledges() {
+      const feed = document.getElementById('pledges-feed');
+      feed.innerHTML = appState.userPledges.map(p => `
+        <div class="p-4 rounded-xl bg-gray-50 dark:bg-brand-darkBg border border-gray-200 dark:border-gray-800 text-xs space-y-2 shadow-sm hover:border-brand-purple/50 transition-colors">
+          <div class="flex items-center gap-2 text-brand-purple dark:text-brand-cyan font-bold">
+            <span>🛡️</span>
+            <span>Compromiso Digital</span>
+          </div>
+          <p class="text-gray-700 dark:text-gray-300 font-medium">"${p}"</p>
+        </div>
+      `).join('');
+    }
+
+    function selectPresetPledge(txt) {
+      document.getElementById('pledge-input').value = txt;
+    }
+
+    function addCommitment(e) {
+      e.preventDefault();
+      const input = document.getElementById('pledge-input');
+      const txt = input.value.trim();
+
+      if (txt) {
+        appState.userPledges.unshift(txt);
+        renderPledges();
+        input.value = '';
+        addXP(15);
+        showToast('¡Tu compromiso fue publicado!', '✍️');
+      }
+    }
+
+    function resetAllProgress() {
+      if (confirm('¿Querés reiniciar tus puntos XP e historial de actividades?')) {
+        appState.xp = 0;
+        appState.learnedTypes = [];
+        appState.unlockedBadges = [];
+        document.getElementById('global-xp').textContent = '0';
+        
+        ['badge-mitos', 'badge-simulador', 'badge-test'].forEach(b => {
+          const el = document.getElementById(b);
+          if (el) el.classList.add('opacity-40');
+        });
+
+        renderViolenceTypes();
+        restartSimulator();
+        restartQuiz();
+        renderMyths();
+        showToast('Progreso reiniciado correctamente.');
+      }
+    }
+
+    /* ==========================================================================
+       9. INITIALIZATION ON PAGE LOAD
+       ========================================================================== */
+
+    window.onload = function() {
+      renderViolenceTypes();
+      renderSimulator();
+      renderQuizQuestion();
+      renderMyths();
+      renderPledges();
+      navigateTo('inicio');
+    };
+  </script>
+</body>
+</html>
